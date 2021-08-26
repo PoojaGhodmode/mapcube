@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+//geocoder
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+//css
 import "./MapContainer.css";
+
 const MAPBOX_TOKEN = process.env.REACT_APP_MAP_TOKEN;
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -19,6 +24,12 @@ const MapContainer = () => {
       center: [lng, lat],
       zoom: zoom,
     });
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      minLength: 4,
+    });
+    geocoder.addTo(map.current);
   });
 
   useEffect(() => {
