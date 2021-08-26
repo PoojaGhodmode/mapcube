@@ -1,5 +1,4 @@
 import "./App.css";
-import MapContainer from "./components/MapContainer";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,6 +6,7 @@ import {
   useParams,
 } from "react-router-dom";
 import ThreeDContainer from "./components/ThreeDContainer";
+import MapContainer from "./components/MapContainer";
 
 function App() {
   return (
@@ -16,10 +16,11 @@ function App() {
           <h3>MapCube</h3>
         </header>
         <Routes>
-          <Route path="/" element={<MapContainer />}/>
-          <Route path="/3dContainer" element={<ThreeDContainer />}/>
-
-          
+          <Route path="/" element={<MapContainer />} />
+          <Route
+            path="/3dContainer/:lat/:lng/:zoom"
+            element={<ThreeDContainer />}
+          />
         </Routes>
       </Router>
     </div>

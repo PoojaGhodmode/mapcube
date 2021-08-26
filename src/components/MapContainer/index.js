@@ -1,58 +1,22 @@
-import { useEffect, useRef, useState } from "react";
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-//geocoder
-import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 //css
-import "./MapContainer.css";
-import { Link } from "react-router-dom";
 
-const MAPBOX_TOKEN = process.env.REACT_APP_MAP_TOKEN;
-mapboxgl.accessToken = MAPBOX_TOKEN;
+import { useMap } from "../../useMap";
+import "./MapContainer.css";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import Button from "../Button";
 
 const MapContainer = () => {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(82);
-  const [lat, setLat] = useState(21);
-  const [zoom, setZoom] = useState(3);
-
-  useEffect(() => {
-    if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
-    });
-    const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl,
-      minLength: 4,
-    });
-    geocoder.addTo(map.current);
-  });
-
-  useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
-    map.current.on("move", () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
-    });
-  });
-
+  const { mapContainer, lng, lat, zoom } = useMap();
   return (
     <div>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapContainer} className="map-container" />
-      <div className="btn">
-        <Link to="/3dcontainer" className="link">
-          See 3d Cube
-        </Link>
-      </div>
+      <Button
+        linkto={`3dContainer/${lat}/${lng}/${zoom}`}
+        text="Go to 3D Model"
+      />
     </div>
   );
 };
