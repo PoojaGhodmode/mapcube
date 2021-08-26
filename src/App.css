@@ -39,3 +39,9 @@ h3 {
   border-bottom: 3px solid transparent;
   font-size: 1.2rem;
 }
+
+#my-canvas {
+  height: 60vh;
+  width: 100%;
+  margin-top: 3rem;
+}
