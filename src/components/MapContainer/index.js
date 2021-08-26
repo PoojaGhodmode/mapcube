@@ -5,6 +5,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 //css
 import "./MapContainer.css";
+import { Link } from "react-router-dom";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAP_TOKEN;
 mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -47,6 +48,11 @@ const MapContainer = () => {
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapContainer} className="map-container" />
+      <div className="btn">
+        <Link to="/3dcontainer" className="link">
+          See 3d Cube
+        </Link>
+      </div>
     </div>
   );
 };
