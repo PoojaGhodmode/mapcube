@@ -1,12 +1,9 @@
-import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useParams,
-} from "react-router-dom";
-import ThreeDContainer from "./components/ThreeDContainer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//Components
 import MapContainer from "./components/MapContainer";
+import MapModel from "./components/mapmodel";
+//Css
+import "./App.css";
 
 function App() {
   return (
@@ -17,10 +14,7 @@ function App() {
         </header>
         <Routes>
           <Route path="/" element={<MapContainer />} />
-          <Route
-            path="/3dContainer/:lat/:lng/:zoom"
-            element={<ThreeDContainer />}
-          />
+          <Route path="/3dContainer/:lat/:lng/:zoom" element={<MapModel />} />
         </Routes>
       </Router>
     </div>

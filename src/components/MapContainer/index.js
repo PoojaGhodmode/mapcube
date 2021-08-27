@@ -1,16 +1,18 @@
-//css
-
+//hook
 import { useMap } from "../../useMap";
-import "./MapContainer.css";
+// css mapbox
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+//component
 import Button from "../Button";
 
 const MapContainer = () => {
   const { mapContainer, lng, lat, zoom } = useMap();
   return (
-    <div>
+    <div className="container">
       <div className="sidebar">
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        <p>Longitude: {lng}</p>
+        <p>Latitude: {lat}</p>
+        <p>Zoom: {zoom}</p>
       </div>
       <div ref={mapContainer} className="map-container" />
       <Button
