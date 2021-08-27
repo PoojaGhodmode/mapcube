@@ -1,6 +1,4 @@
-import { useParams } from "react-router-dom";
 import {
-  FreeCamera,
   Vector3,
   HemisphericLight,
   MeshBuilder,
@@ -9,18 +7,12 @@ import {
   ArcRotateCamera,
   PointLight,
   Color3,
-  Vector4,
 } from "@babylonjs/core";
-
+// hook babylonjs-hook import
 import SceneComponent from "babylonjs-hook";
-import getImageURL from "../../utils/getimageurl";
-import { useState } from "react";
-
-// const url;
 
 const ThreeDContainer = ({ url1, url2 }) => {
   let box;
-
   const onSceneReady = (scene) => {
     scene.clearColor = new Color3(0.3, 0.35, 0.5);
     console.log("changed");
@@ -43,23 +35,23 @@ const ThreeDContainer = ({ url1, url2 }) => {
     camera.attachControl(canvas, true);
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
+    const light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
+    light.intensity = 0.8;
 
     var pl = new PointLight("pl", Vector3.Zero(), scene);
     pl.diffuse = new Color3(1, 1, 1);
     pl.specular = new Color3(1, 1, 1);
     pl.intensity = 0.7;
 
-    box = MeshBuilder.CreateBox(
-      "box",
-      { size: 8, wrap: true, },
-      scene
-    );
+    // create a cube
+    box = MeshBuilder.CreateBox("box", { size: 8, wrap: true }, scene);
     box.position.y = 1;
 
     //create material
     const material = new StandardMaterial("material", scene);
+    // for color and streets name
     material.diffuseTexture = new Texture(url1, scene);
+    // for bump nature
     material.bumpTexture = new Texture(url2, scene);
     box.material = material;
   };
