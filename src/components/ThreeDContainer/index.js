@@ -9,18 +9,21 @@ import {
   ArcRotateCamera,
   PointLight,
   Color3,
+  Vector4,
 } from "@babylonjs/core";
 
 import SceneComponent from "babylonjs-hook";
+import getImageURL from "../../utils/getimageurl";
+import { useState } from "react";
 
 // const url;
 
-const ThreeDContainer = () => {
-  const { lat, lng, zoom } = useParams();
-  console.log(lat, lng, zoom);
-
+const ThreeDContainer = ({ url1, url2 }) => {
   let box;
+
   const onSceneReady = (scene) => {
+    scene.clearColor = new Color3(0.3, 0.35, 0.5);
+    console.log("changed");
     const camera = new ArcRotateCamera(
       "camera",
       -Math.PI / 2,
@@ -45,27 +48,19 @@ const ThreeDContainer = () => {
     var pl = new PointLight("pl", Vector3.Zero(), scene);
     pl.diffuse = new Color3(1, 1, 1);
     pl.specular = new Color3(1, 1, 1);
-    pl.intensity = 0.8;
+    pl.intensity = 0.7;
 
-    // Default intensity is 1. Let's dim the light a small amount
-    light.intensity = 1;
-
-    // Our built-in 'box' shape.
-    box = MeshBuilder.CreateBox("box", { size: 5 }, scene);
-
-    box.rotation.x = 0;
-    box.scaling.x = 1;
+    box = MeshBuilder.CreateBox(
+      "box",
+      { size: 8, wrap: true, },
+      scene
+    );
+    box.position.y = 1;
 
     //create material
     const material = new StandardMaterial("material", scene);
-    material.diffuseTexture = new Texture(
-      "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/-122.0406,39.1364,9,0/500x500?access_token=pk.eyJ1IjoicG9vamFnaG9kbW9kZSIsImEiOiJja3NycmJqZmowcGsxMnBvNmI5NjhvajQwIn0.BpIkzKjBu9vr3P6At7D_iQ",
-      scene
-    );
-    material.bumpTexture = new Texture(
-      "https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/-122.0406,39.1364,9,0/500x500?access_token=pk.eyJ1IjoicG9vamFnaG9kbW9kZSIsImEiOiJja3NycmJqZmowcGsxMnBvNmI5NjhvajQwIn0.BpIkzKjBu9vr3P6At7D_iQ",
-      scene
-    );
+    material.diffuseTexture = new Texture(url1, scene);
+    material.bumpTexture = new Texture(url2, scene);
     box.material = material;
   };
 

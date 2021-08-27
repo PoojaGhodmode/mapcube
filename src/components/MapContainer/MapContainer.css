@@ -1,5 +1,11 @@
+.container {
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
 .map-container {
   height: 400px;
+  width: 100vw;
 }
 
 .sidebar {
@@ -14,4 +20,29 @@
   font-size: 1.2rem;
 }
 
+.btn {
+  margin: 1rem auto;
+  width: 60%;
+  max-width: 500px;
+  border-radius: 30px;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(0, 51, 102);
+}
 
+.link:hover,
+.link:focus {
+  border-bottom: 3px solid white;
+}
+
+.link {
+  width: 100%;
+  text-decoration: none;
+  color: white;
+  /* padding: 0.5rem 5rem; */
+  border-bottom: 3px solid transparent;
+  font-size: 1.2rem;
+}

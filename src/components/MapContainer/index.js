@@ -7,7 +7,7 @@ import Button from "../Button";
 const MapContainer = () => {
   const { mapContainer, lng, lat, zoom } = useMap();
   return (
-    <div>
+    <div className="container">
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
