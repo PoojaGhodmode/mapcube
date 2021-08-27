@@ -15,7 +15,6 @@ const ThreeDContainer = ({ url1, url2 }) => {
   let box;
   const onSceneReady = (scene) => {
     scene.clearColor = new Color3(0.3, 0.35, 0.45);
-    console.log("changed");
     const camera = new ArcRotateCamera(
       "camera",
       -Math.PI / 2,

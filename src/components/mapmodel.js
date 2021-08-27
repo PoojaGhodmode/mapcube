@@ -7,7 +7,6 @@ import ThreeDContainer from "./ThreeDContainer";
 
 const MapModel = () => {
   const { lat, lng, zoom } = useParams();
-  console.log(lat, lng, zoom);
 
   const { url1, url2 } = getImageURL(lng, lat, zoom);
 
