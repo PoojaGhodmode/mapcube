@@ -10,30 +10,42 @@ export const useMap = () => {
   const [lng, setLng] = useState(82);
   const [lat, setLat] = useState(21);
   const [zoom, setZoom] = useState(3);
+  let isMounted = useRef(null);
 
   useEffect(() => {
+    isMounted.current = true;
     if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
-    });
-    const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl,
-      minLength: 4,
-    });
-    geocoder.addTo(map.current);
+    if (isMounted.current) {
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [lng, lat],
+        zoom: zoom,
+      });
+      const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        minLength: 4,
+      });
+      geocoder.addTo(map.current);
+    }
+    return () => {
+      isMounted.current = false;
+    };
   });
 
   useEffect(() => {
     if (!map.current) return; // wait for map to initialize
-    map.current.on("move", () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
-    });
+    if (isMounted.current) {
+      map.current.on("move", () => {
+        setLng(map.current.getCenter().lng.toFixed(4));
+        setLat(map.current.getCenter().lat.toFixed(4));
+        setZoom(map.current.getZoom().toFixed(2));
+      });
+    }
+    return () => {
+      isMounted.current = false;
+    };
   });
 
   return {
