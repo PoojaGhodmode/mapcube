@@ -1,5 +1,6 @@
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import mapboxgl from "mapbox-gl";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from "!mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 
 export const useMap = () => {
